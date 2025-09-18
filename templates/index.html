@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天気予報アプリ</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f4f8; color: #333; max-width: 600px; margin: 40px auto; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #005a9c; }
+        form { margin-bottom: 20px; }
+        input[type="text"] { padding: 10px; width: 70%; border: 1px solid #ccc; border-radius: 4px; }
+        input[type="submit"] { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .weather-info { background-color: #fff; padding: 20px; border-radius: 4px; }
+        .error { color: #d8000c; background-color: #ffbaba; padding: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>天気予報アプリ</h1>
+    <form action="/" method="post">
+        <input type="text" name="city" placeholder="都市名を入力 (例: London)">
+        <input type="submit" value="天気を調べる">
+    </form>
+
+    {% if weather_data %}
+    <div class="weather-info">
+        <h2>{{ weather_data.name }}の天気</h2>
+        <p>天気: {{ weather_data.weather[0].description }}</p>
+        <p>気温: {{ weather_data.main.temp }} °C</p>
+        <p>体感温度: {{ weather_data.main.feels_like }} °C</p>
+        <p>湿度: {{ weather_data.main.humidity }} %</p>
+    </div>
+    {% elif error_message %}
+        <p class="error">{{ error_message }}</p>
+    {% endif %}
+
+</body>
+</html>
